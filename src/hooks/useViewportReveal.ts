@@ -48,6 +48,29 @@ export function getRevealMotion(isCompact: boolean, options: RevealOptions = {})
   const activeOffset = isCompact ? mobileOffset : offset;
   const initialPosition = axis === "x" ? { x: activeOffset } : { y: activeOffset };
   const settledPosition = axis === "x" ? { x: 0 } : { y: 0 };
+  const isExportingPdf =
+    typeof document !== "undefined" && document.documentElement.dataset.exportingPdf === "true";
+
+  if (isExportingPdf) {
+    return {
+      initial: {
+        ...settledPosition,
+        opacity: 1,
+      },
+      whileInView: {
+        ...settledPosition,
+        opacity: 1,
+      },
+      viewport: {
+        once: true,
+        amount: 0,
+      },
+      transition: {
+        duration: 0,
+        delay: 0,
+      },
+    };
+  }
 
   return {
     initial: {
