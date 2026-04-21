@@ -17,6 +17,10 @@ import type { Locale, ResolvedTheme, ThemeMode } from "./types";
 
 const THEME_STORAGE_KEY = "theme_mode_v1";
 const prefersDarkQuery = "(prefers-color-scheme: dark)";
+const themeColorByTheme: Record<ResolvedTheme, string> = {
+  light: "#f8fafc",
+  dark: "#0b1220",
+};
 
 const getStoredThemeMode = (): ThemeMode => {
   if (typeof window === "undefined") {
@@ -77,6 +81,9 @@ function App() {
     document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.dataset.themeMode = themeMode;
     document.documentElement.style.colorScheme = resolvedTheme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", themeColorByTheme[resolvedTheme]);
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [resolvedTheme, themeMode]);
 
