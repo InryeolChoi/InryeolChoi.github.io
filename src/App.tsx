@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FiBriefcase, FiDownload, FiFileText } from "react-icons/fi";
 
 import { Certifications } from "./components/Certifications";
 import { Education } from "./components/Education";
@@ -41,14 +42,12 @@ const getSystemTheme = (): ResolvedTheme =>
 function App() {
   const { i18n, t } = useTranslation();
   const [showIntro, setShowIntro] = useState(true);
-  const [isExporting, setIsExporting] = useState(false);
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => getStoredThemeMode());
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(() =>
     typeof window === "undefined" ? "light" : getSystemTheme(),
   );
   const locale: Locale = getLocale(i18n.language);
   const resolvedTheme: ResolvedTheme = themeMode === "system" ? systemTheme : themeMode;
-  const cvRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -87,76 +86,6 @@ function App() {
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [resolvedTheme, themeMode]);
 
-  const handleDownloadCv = async () => {
-    if (!cvRef.current || isExporting) {
-      return;
-    }
-
-    setIsExporting(true);
-    document.documentElement.dataset.exportingPdf = "true";
-
-    try {
-      const html2pdf = (await import("html2pdf.js")).default;
-      await new Promise((resolve) => window.requestAnimationFrame(() => resolve(undefined)));
-      await new Promise((resolve) => window.requestAnimationFrame(() => resolve(undefined)));
-      await new Promise((resolve) => window.setTimeout(resolve, 250));
-      const exporter = html2pdf() as {
-        set: (options: Record<string, unknown>) => {
-          from: (element: HTMLElement) => {
-            save: () => Promise<void>;
-          };
-        };
-      };
-      const exportWidth = Math.ceil(cvRef.current.getBoundingClientRect().width);
-
-      await exporter
-        .set({
-          filename: "inryeol-choi-cv.pdf",
-          margin: [8, 8, 8, 8],
-          image: {
-            type: "jpeg",
-            quality: 0.98,
-          },
-          pagebreak: {
-            mode: ["css", "legacy"],
-            avoid: [
-              ".photoShell",
-              ".personalInfoBlock",
-              ".stackSection",
-              ".stackLineItem",
-              ".wideCard",
-              ".timelineItem",
-              ".timelineBody",
-              ".courseGroupCard",
-              ".coursePill",
-              ".certificationCard",
-              ".metaRow",
-            ],
-          },
-          html2canvas: {
-            scale: 1,
-            useCORS: true,
-            backgroundColor: "#ffffff",
-            scrollX: 0,
-            scrollY: 0,
-            windowWidth: exportWidth,
-          },
-          jsPDF: {
-            unit: "mm",
-            format: "a4",
-            orientation: "portrait",
-          },
-        })
-        .from(cvRef.current)
-        .save();
-    } finally {
-      delete document.documentElement.dataset.exportingPdf;
-      window.setTimeout(() => {
-        setIsExporting(false);
-      }, 150);
-    }
-  };
-
   return (
     <>
       <IntroOverlay show={showIntro} />
@@ -185,7 +114,7 @@ function App() {
           </div>
         </header>
 
-        <main className={isExporting ? "pageContent exportMode" : "pageContent"} id="content" ref={cvRef}>
+        <main className="pageContent" id="content">
           <Hero locale={locale} />
           <Skills locale={locale} />
           <Projects locale={locale} />
@@ -195,12 +124,29 @@ function App() {
           <Experience locale={locale} />
           <Other locale={locale} />
         </main>
-        <footer className="pageFooter">
-          <button className="cvButton" type="button" onClick={handleDownloadCv} disabled={isExporting}>
-            {isExporting ? t("downloadingCv") : t("downloadCv")}
-          </button>
+        <footer className="pageFooter" aria-label={t("documentDownloads")}>
+          <div className="downloadActions">
+            <a
+              className="downloadButton"
+              href="/downloads/inryeol-choi-cv.pdf"
+              download="inryeol-choi-cv.pdf"
+            >
+              <FiFileText aria-hidden="true" className="downloadButtonIcon" />
+              <span>{t("downloadCv")}</span>
+              <FiDownload aria-hidden="true" className="downloadButtonCue" />
+            </a>
+            <a
+              className="downloadButton downloadButtonSecondary"
+              href="/downloads/inryeol-choi-portfolio.pdf"
+              download="inryeol-choi-portfolio.pdf"
+            >
+              <FiBriefcase aria-hidden="true" className="downloadButtonIcon" />
+              <span>{t("downloadPortfolio")}</span>
+              <FiDownload aria-hidden="true" className="downloadButtonCue" />
+            </a>
+          </div>
         </footer>
-        <LanguageToggle locale={locale} hidden={isExporting} />
+        <LanguageToggle locale={locale} />
       </div>
     </>
   );
