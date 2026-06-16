@@ -22,6 +22,40 @@ const themeColorByTheme: Record<ResolvedTheme, string> = {
   light: "#f8fafc",
   dark: "#0b1220",
 };
+const documentDownloadFiles: Record<
+  Locale,
+  {
+    cv: {
+      href: string;
+      filename: string;
+    };
+    portfolio: {
+      href: string;
+      filename: string;
+    };
+  }
+> = {
+  ko: {
+    cv: {
+      href: "/downloads/inryeol-choi-cv.pdf",
+      filename: "inryeol-choi-cv.pdf",
+    },
+    portfolio: {
+      href: "/downloads/inryeol-choi-portfolio.pdf",
+      filename: "inryeol-choi-portfolio.pdf",
+    },
+  },
+  en: {
+    cv: {
+      href: "/downloads/inryeol-choi-cv-en.pdf",
+      filename: "inryeol-choi-cv-en.pdf",
+    },
+    portfolio: {
+      href: "/downloads/inryeol-choi-portfolio-en.pdf",
+      filename: "inryeol-choi-portfolio-en.pdf",
+    },
+  },
+};
 
 const getStoredThemeMode = (): ThemeMode => {
   if (typeof window === "undefined") {
@@ -48,6 +82,7 @@ function App() {
   );
   const locale: Locale = getLocale(i18n.language);
   const resolvedTheme: ResolvedTheme = themeMode === "system" ? systemTheme : themeMode;
+  const downloads = documentDownloadFiles[locale];
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -128,8 +163,8 @@ function App() {
           <div className="downloadActions">
             <a
               className="downloadButton"
-              href="/downloads/inryeol-choi-cv.pdf"
-              download="inryeol-choi-cv.pdf"
+              href={downloads.cv.href}
+              download={downloads.cv.filename}
             >
               <FiFileText aria-hidden="true" className="downloadButtonIcon" />
               <span>{t("downloadCv")}</span>
@@ -137,8 +172,8 @@ function App() {
             </a>
             <a
               className="downloadButton downloadButtonSecondary"
-              href="/downloads/inryeol-choi-portfolio.pdf"
-              download="inryeol-choi-portfolio.pdf"
+              href={downloads.portfolio.href}
+              download={downloads.portfolio.filename}
             >
               <FiBriefcase aria-hidden="true" className="downloadButtonIcon" />
               <span>{t("downloadPortfolio")}</span>

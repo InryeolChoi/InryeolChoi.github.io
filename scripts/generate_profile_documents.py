@@ -488,6 +488,176 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     doc.build(story)
 
 
+def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
+    story = []
+    story.extend(header_block(styles, "CV - English"))
+    story.extend(section_title("Profile", styles))
+    story.append(
+        p(
+            "Backend-oriented developer focused on understanding and designing the structure and flow of systems. "
+            "I have built my foundation around Java, Spring, Docker, Linux, and databases, and I have practiced "
+            "connecting authentication, data persistence, API flow, and runtime environments into coherent service architecture.",
+            styles["body"],
+        )
+    )
+    story.append(Spacer(1, 7))
+
+    story.extend(section_title("Core Strengths", styles))
+    story.append(
+        bullet_list(
+            [
+                "Understand requirements through data flow, authentication flow, runtime constraints, and operational context, not only through feature lists.",
+                "Built practical fundamentals in processes, file descriptors, networking, and concurrency through C/C++ system projects at 42 Seoul.",
+                "Studied backend layering and API design by comparing Spring Boot, Django REST Framework, and FastAPI in project contexts.",
+                "Used GitHub Actions, Docker, Nginx, and GCP Compute Engine to make development and deployment flows more reproducible.",
+            ],
+            styles,
+        )
+    )
+    story.append(Spacer(1, 7))
+
+    story.extend(section_title("Skills", styles))
+    story.append(
+        tag_table(
+            [
+                "Java",
+                "Spring Boot",
+                "Python",
+                "Django",
+                "FastAPI",
+                "C",
+                "C++",
+                "PostgreSQL",
+                "MySQL",
+                "Redis",
+                "Docker",
+                "Nginx",
+                "Linux",
+                "GCP",
+                "Git",
+                "GitHub Actions",
+                "React",
+                "TypeScript",
+                "R",
+                "SQL",
+            ],
+            styles,
+            columns=5,
+        )
+    )
+    story.append(Spacer(1, 7))
+
+    story.extend(section_title("Experience", styles))
+    story.append(
+        compact_entry(
+            "PwC Korea - Full-time",
+            "2025.04 - Present",
+            "Reviewing enterprise IT operating procedures and internal controls while analyzing transaction data flows, system processes, and data consistency.",
+            [
+                "Supported control design test analysis and design across about 14 client environments, including e-commerce and fintech.",
+                "Reviewed Java and Kotlin logic alongside Git-based repository histories to understand system behavior and implementation flow.",
+                "Used data consistency checks to understand system structures and control logic.",
+            ],
+            styles,
+        )
+    )
+    story.append(
+        compact_entry(
+            "PwC Korea - Intern",
+            "2024.10 - 2025.04",
+            "Reviewed enterprise IT operating procedures and internal control documentation, and supported transaction data validation.",
+            [
+                "Followed system operation processes to identify processing structures and key control points.",
+                "Reviewed Java logic and GitHub commit logs to understand system behavior and change history.",
+            ],
+            styles,
+        )
+    )
+
+    story.append(PageBreak())
+    story.extend(section_title("Selected Projects", styles))
+    story.append(
+        compact_entry(
+            "Simsimjogak - Spring Boot backend",
+            "Spring Boot, Java, MySQL, Redis, JWT",
+            "Built the backend for an emotion-based diary service, connecting social login, diary management, AI letters, and monthly reports into one service flow.",
+            [
+                "Implemented Google and Apple social login with JWT refresh flow.",
+                "Built diary create, read, update, delete, and monthly record query APIs.",
+                "Analyzed external AI API response mismatches, adjusted parsing logic, and verified behavior with test cases.",
+            ],
+            styles,
+        )
+    )
+    story.append(
+        compact_entry(
+            "Active Recall Quiz",
+            "Next.js, React, FastAPI, SQLite, GitHub Actions",
+            "A learning app that syncs external markdown notes and turns them into quiz creation, exam submission, grading, and wrong-answer review flows.",
+            [
+                "Connected the note repository and app with GitHub Actions to support content synchronization.",
+                "Separated exam creation, submission, grading, and result lookup into API flows.",
+            ],
+            styles,
+        )
+    )
+    story.append(
+        compact_entry(
+            "ft_irc / minishell / transcendence",
+            "C, C++, kqueue, Unix process, Django REST Framework, PostgreSQL, Docker",
+            "Implemented network server behavior, shell parsing and process execution, and web-service backend authentication through 42 Seoul projects.",
+            [
+                "Handled IRC client connections and channel state through an event-driven server structure.",
+                "Converted minishell parsing results into execution structures and implemented pipe-based process chaining.",
+                "Built 42 OAuth, JWT, email-based second-factor verification, and a Docker Compose runtime setup in transcendence.",
+            ],
+            styles,
+        )
+    )
+
+    story.extend(section_title("Education and Learning", styles))
+    story.append(
+        compact_entry(
+            "Dongguk University",
+            "2018.03 - 2025.02 | Management Information Systems, Statistics",
+            "Completed a major in Management Information Systems and a double major in Statistics, combining service development, business process understanding, data analysis, and statistical modeling.",
+            [
+                "MIS: Business Programming, Cloud Computing Service, Business Process Management, Big Data and Business Analytics.",
+                "Statistics: Statistical Mathematics and R Practice, Regression Analysis, Multivariate Analysis, Data Mining.",
+            ],
+            styles,
+        )
+    )
+    story.append(
+        compact_entry(
+            "42 Seoul",
+            "2023.03 - 2024.10 | Project-based software engineering program",
+            "Strengthened computer science fundamentals through C/C++ system programming projects and peer review.",
+            [
+                "Maintained an intensive project-based learning rhythm of about 160 hours per month.",
+                "Improved collaboration, code review, and problem-solving skills through peer evaluation and team projects.",
+            ],
+            styles,
+        )
+    )
+
+    story.extend(section_title("Certifications and Other", styles))
+    story.append(
+        bullet_list(
+            [
+                "OPIC AL - 2024.09.20",
+                "SQLD - 2021.12.17",
+                "Big Data Analysis Engineer - 2024.12.20",
+                "KATUSA, Eighth Army interpretation and administrative support - 2020.09 - 2022.03",
+            ],
+            styles,
+        )
+    )
+
+    doc = ProfileDocTemplate(OUTPUT_DIR / "inryeol-choi-cv-en.pdf", "Inryeol Choi CV English")
+    doc.build(story)
+
+
 def project_card(
     title: str,
     subtitle: str,
@@ -714,12 +884,220 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     doc.build(story)
 
 
+def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
+    story = [
+        Spacer(1, 55),
+        p("Inryeol Choi", styles["cover_title"]),
+        Spacer(1, 8),
+        p("Backend Portfolio", styles["cover_title"]),
+        Spacer(1, 12),
+        p(
+            "A project record focused on backend systems that connect service flow, data structure, authentication, and runtime environments.",
+            styles["cover_subtitle"],
+        ),
+        Spacer(1, 12),
+        p("dlsfuf0316@gmail.com | github.com/InryeolChoi | Seoul, South Korea", styles["cover_subtitle"]),
+    ]
+    story.append(Spacer(1, 52))
+    story.extend(section_title("Portfolio Focus", styles))
+    story.append(
+        bullet_list(
+            [
+                "Treat APIs as structured user flows that connect data state, validation, exceptions, and operational behavior.",
+                "Work across foundational backend concerns such as authentication, databases, deployment, and runtime configuration.",
+                "Built system programming fundamentals through hands-on projects involving networking, processes, file descriptors, and concurrency.",
+            ],
+            styles,
+        )
+    )
+    story.append(Spacer(1, 10))
+
+    story.append(PageBreak())
+    story.extend(section_title("Representative Projects", styles))
+    story.append(
+        project_card(
+            "Simsimjogak",
+            "Spring Boot backend for an emotion-based diary service",
+            "Built a backend that connects social login, diary CRUD, AI letters, summaries, and monthly keyword reports for an emotion-based diary service.",
+            [
+                (
+                    "Problem",
+                    "Social login, token refresh, diary data management, and external AI response generation needed to work together without breaking the user flow.",
+                ),
+                (
+                    "Approach",
+                    "Set up authentication around Spring Security and JWT, connected MySQL and Redis to separate user data from token state, and integrated a local AI server. When external AI responses differed from the expected format, I analyzed the response structure and strengthened the parsing logic.",
+                ),
+                (
+                    "Result",
+                    "Created a backend structure that handles authentication, persistence, AI response generation, and monthly lookup flow in one service.",
+                ),
+            ],
+            [
+                "Implemented Google and Apple social login with JWT refresh flow.",
+                "Built diary create, read, update, delete, and monthly record query APIs.",
+                "Analyzed external AI API response structure differences and verified fixes with test cases.",
+            ],
+            ["Spring Boot", "Java", "Spring Security", "JPA", "MySQL", "Redis", "JWT"],
+            styles,
+        )
+    )
+    story.append(
+        project_card(
+            "Active Recall Quiz",
+            "Study app that turns markdown notes into exam and review flows",
+            "A learning app that syncs external markdown notes and turns them into quiz creation, exam submission, grading, and wrong-answer review flows.",
+            [
+                (
+                    "Problem",
+                    "Study materials were scattered across markdown notes, making it difficult to turn them into a repeatable exam, grading, and review cycle.",
+                ),
+                (
+                    "Approach",
+                    "Connected the note repository and app through GitHub Actions, then structured the FastAPI backend around exam creation, submission, grading, and result lookup.",
+                ),
+                (
+                    "Result",
+                    "Created a flow where note writing and app-based review reinforce each other, including wrong-answer review.",
+                ),
+            ],
+            [
+                "Structured synchronization for external markdown content.",
+                "Separated exam creation, submission, grading, and result lookup API flows.",
+                "Built the study workflow with a Next.js frontend and FastAPI backend.",
+            ],
+            ["Next.js", "React", "FastAPI", "SQLite", "GitHub Actions", "Markdown"],
+            styles,
+        )
+    )
+    story.append(
+        project_card(
+            "ft_irc",
+            "Event-driven IRC server",
+            "Implemented an IRC server that handles multiple user connections and channel state, learning network server structure and event-driven I/O.",
+            [
+                (
+                    "Problem",
+                    "Multiple client connections, command processing, and channel state could quickly make the server architecture hard to follow.",
+                ),
+                (
+                    "Approach",
+                    "Separated the server responsibilities early and centered the implementation around kqueue-based event monitoring for connection and channel state handling.",
+                ),
+                (
+                    "Result",
+                    "Built a practical understanding of how event-driven servers process connections, commands, and shared state.",
+                ),
+            ],
+            [
+                "Designed the server structure before expanding features.",
+                "Studied the event detection flow of kqueue, a multiplexing-based non-blocking I/O system call.",
+                "Learned how a server manages client connections and channel state.",
+            ],
+            ["C++", "Socket", "kqueue", "IRC", "Network server"],
+            styles,
+        )
+    )
+    story.append(
+        project_card(
+            "minishell",
+            "Unix shell parsing and process execution",
+            "Implemented how a shell interprets input and connects commands, learning parsing and process flow through direct implementation.",
+            [
+                (
+                    "Problem",
+                    "A shell has to structure input according to rules such as pipes, redirection, and environment variables instead of simply executing raw strings.",
+                ),
+                (
+                    "Approach",
+                    "Studied how input is parsed into executable structures, then connected commands with pipe, fork, dup2, and execve.",
+                ),
+                (
+                    "Result",
+                    "Implemented the full flow from string parsing to execution planning and process chaining.",
+                ),
+            ],
+            [
+                "Learned the parsing flow that turns input into executable structures.",
+                "Implemented pipe-based command chaining.",
+                "Understood shell command execution and process connection.",
+            ],
+            ["C", "Unix process", "pipe", "fork", "dup2", "execve"],
+            styles,
+        )
+    )
+    story.append(
+        project_card(
+            "transcendence",
+            "Service-style web backend with authentication and runtime setup",
+            "Built a backend for a real web-service flow, covering authentication, persistence, and runtime environment setup.",
+            [
+                (
+                    "Problem",
+                    "The API server, login, security, database, and deployment runtime needed to work together as one integrated system.",
+                ),
+                (
+                    "Approach",
+                    "Built APIs with Django REST Framework and integrated 42 OAuth login, JWT issuance and refresh, and email-based second-factor verification links into the authentication flow.",
+                ),
+                (
+                    "Result",
+                    "Configured an authentication flow that considered failures and token expiration, plus a PostgreSQL and Docker Compose runtime environment.",
+                ),
+            ],
+            [
+                "Built the backend with Django and Django REST Framework.",
+                "Implemented 42 OAuth login, JWT issuance, and email-based second-factor verification links.",
+                "Set up a development environment with PostgreSQL and Docker Compose.",
+            ],
+            ["Django", "DRF", "PostgreSQL", "Docker", "JWT", "OAuth"],
+            styles,
+        )
+    )
+    story.append(
+        project_card(
+            "Database Playground / Profile Site / Active Recall Notes",
+            "Supporting repositories for data practice, portfolio publishing, and study content modeling",
+            "Maintained supporting repositories for database practice, static site publishing, and markdown-based study content modeling.",
+            [
+                (
+                    "Problem",
+                    "I wanted concept study to remain reusable instead of disappearing after one-time practice.",
+                ),
+                (
+                    "Approach",
+                    "Separated a PostgreSQL and Docker SQL practice repository, a React profile site, and a markdown study note repository.",
+                ),
+                (
+                    "Result",
+                    "Built a personal development workflow that connects study, documentation, publishing, and automation.",
+                ),
+            ],
+            [
+                "Practiced databases with PostgreSQL and Docker.",
+                "Built a GitHub Pages profile site with React, TypeScript, and Vite.",
+                "Synchronized markdown notes and learning app content with GitHub Actions.",
+            ],
+            ["PostgreSQL", "Docker", "React", "TypeScript", "Vite", "Markdown", "GitHub Actions"],
+            styles,
+        )
+    )
+
+    doc = ProfileDocTemplate(
+        OUTPUT_DIR / "inryeol-choi-portfolio-en.pdf",
+        "Inryeol Choi Portfolio English",
+    )
+    doc.build(story)
+
+
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     register_fonts()
     styles = make_styles()
     build_cv(styles)
+    build_cv_en(styles)
     build_portfolio(styles)
+    build_portfolio_en(styles)
 
 
 if __name__ == "__main__":
