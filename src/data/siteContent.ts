@@ -278,6 +278,40 @@ export const portfolioItems: PortfolioItem[] = [
 
 export const projectItems: ProjectItem[] = [
   {
+    title: "ft_malloc",
+    role: {
+      ko: "메모리 할당자 설계와 동적 메모리 관리 구현",
+      en: "Memory allocator design and dynamic memory management implementation",
+    },
+    problem: {
+      ko: "동적 메모리 할당자는 요청 크기에 맞는 영역을 빠르게 찾는 것뿐 아니라 정렬, 단편화, 잘못된 포인터, 크기 계산 overflow, 사용이 끝난 메모리의 반환까지 함께 다뤄야 했습니다.",
+      en: "A dynamic memory allocator has to do more than find space for each request; it also needs to handle alignment, fragmentation, invalid pointers, size calculation overflow, and returning unused memory to the operating system.",
+    },
+    approach: {
+      ko: "`mmap()`으로 확보한 영역을 TINY, SMALL, LARGE zone으로 나누고, 사용자 영역 앞의 tag 메타데이터로 할당 상태와 크기를 추적했습니다. free tag를 재사용하고 필요할 때 분할하며, `free()`에서는 인접한 빈 tag를 병합하고 완전히 비어진 box를 조건에 따라 `munmap()`하도록 구성했습니다.",
+      en: "I divided memory obtained through `mmap()` into TINY, SMALL, and LARGE zones and tracked allocation state and size with tag metadata placed before each user area. Free tags are reused and split when appropriate, while `free()` coalesces adjacent free tags and conditionally releases empty boxes with `munmap()`.",
+    },
+    summary: {
+      ko: "C 표준 라이브러리의 동적 메모리 관리 흐름을 더 낮은 수준에서 이해하기 위해 `malloc`, `free`, `realloc`, `show_alloc_mem`을 직접 구현한 프로젝트입니다.",
+      en: "A project where I implemented `malloc`, `free`, `realloc`, and `show_alloc_mem` to understand the lower-level mechanics behind dynamic memory management in the C standard library.",
+    },
+    highlights: {
+      ko: [
+        "TINY·SMALL·LARGE zone별 box 관리와 16-byte 정렬 구현",
+        "free tag 탐색·분할·재사용 및 인접 free tag 병합 구현",
+        "완전히 비어진 LARGE 및 여분의 TINY·SMALL box를 `munmap()`으로 반환",
+        "포인터 검증과 overflow 방지를 포함한 `realloc` 및 주소순 `show_alloc_mem` 구현",
+      ],
+      en: [
+        "Implemented box management across TINY, SMALL, and LARGE zones with 16-byte alignment",
+        "Implemented free-tag lookup, splitting, reuse, and adjacent free-tag coalescing",
+        "Returned fully unused LARGE boxes and surplus TINY/SMALL boxes with `munmap()`",
+        "Implemented `realloc` with pointer validation and overflow checks, plus address-ordered `show_alloc_mem` output",
+      ],
+    },
+    githubUrl: "https://github.com/InryeolChoi/ft_malloc",
+  },
+  {
     title: "ft_irc",
     role: {
       ko: "서버 구조 설계와 이벤트 기반 I/O 흐름 이해",
