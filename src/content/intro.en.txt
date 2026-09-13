@@ -1,0 +1,5 @@
+I aspire to become a developer who understands and designs the structure and flow of backend systems. I am a developer who keeps moving forward with steady curiosity. I first encountered programming through university courses, then began studying more seriously through algorithms and continued that journey at 42 Seoul.
+
+At first, I wanted to build innovative services through big data, but the more I studied data analysis, the more I became interested in designing how data is stored, managed, and processed.
+
+That shift naturally led me deeper into computer science as a whole, and I am now continuously studying backend programming, databases, and cloud technologies. I want to keep growing and build stronger services through technology.
