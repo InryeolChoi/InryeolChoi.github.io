@@ -630,6 +630,17 @@ export const certificationItems: CertificationItem[] = [
       en: "A national technical certification covering big-data understanding, analysis workflow, modeling, and interpretation.",
     },
   },
+  {
+    title: {
+      ko: "정보처리기사",
+      en: "Engineer Information Processing",
+    },
+    acquiredAt: "2026.09.11",
+    description: {
+      ko: "소프트웨어 설계, 개발, 데이터베이스 구축 등 정보처리 전반을 다루는 국가기술자격입니다.",
+      en: "A national technical certification covering software design, development, database implementation, and information processing.",
+    },
+  },
 ];
 
 export const otherItems: OtherItem[] = [
