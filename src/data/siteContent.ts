@@ -602,14 +602,6 @@ export const learningHistoryItems: LearningHistoryItem[] = [
 export const certificationItems: CertificationItem[] = [
   {
     title: {
-      ko: "OPIC",
-      en: "OPIC",
-    },
-    grade: "AL",
-    acquiredAt: "2024.09.20",
-  },
-  {
-    title: {
       ko: "SQLD",
       en: "SQLD",
     },
