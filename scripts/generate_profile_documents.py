@@ -433,10 +433,11 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         compact_entry(
-            "ft_irc / minishell / transcendence",
-            "C, C++, kqueue, Unix process, Django REST Framework, PostgreSQL, Docker",
-            "42서울 프로젝트를 통해 네트워크 서버, 쉘 파싱과 프로세스 연결, 웹 서비스 백엔드와 인증 흐름을 직접 구현했습니다.",
+            "ft_malloc / ft_irc / minishell / transcendence",
+            "C, C++, mmap, pthread, kqueue, Django REST Framework, Docker",
+            "42서울 프로젝트에서 메모리 할당자, 네트워크 서버, 쉘, 웹 서비스 백엔드를 직접 구현했습니다.",
             [
+                "ft_malloc에서 zone별 할당·병합과 mutex 기반 동시성, 실패 안전한 munmap 처리 구현",
                 "IRC 서버에서 다중 클라이언트 연결과 채널 상태를 이벤트 기반 구조로 처리",
                 "minishell에서 파싱 결과를 실행 구조로 변환하고 pipe 기반 프로세스 연결 구현",
                 "transcendence에서 42 OAuth, JWT, 이메일 기반 2차 인증, Docker Compose 환경 구성",
@@ -475,9 +476,9 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     story.append(
         bullet_list(
             [
-                "OPIC AL - 2024.09.20",
                 "SQLD - 2021.12.17",
                 "빅데이터분석기사 - 2024.12.20",
+                "정보처리기사 - 2026.09.11",
                 "KATUSA, Eighth Army interpretation and administrative support - 2020.09 - 2022.03",
             ],
             styles,
@@ -603,10 +604,11 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         compact_entry(
-            "ft_irc / minishell / transcendence",
-            "C, C++, kqueue, Unix process, Django REST Framework, PostgreSQL, Docker",
-            "Implemented network server behavior, shell parsing and process execution, and web-service backend authentication through 42 Seoul projects.",
+            "ft_malloc / ft_irc / minishell / transcendence",
+            "C, C++, mmap, pthread, kqueue, Django REST Framework, Docker",
+            "Implemented an allocator, network server, shell, and web-service backend through 42 Seoul projects.",
             [
+                "Built zone-based allocation and coalescing, mutex protection, and failure-safe munmap handling in ft_malloc.",
                 "Handled IRC client connections and channel state through an event-driven server structure.",
                 "Converted minishell parsing results into execution structures and implemented pipe-based process chaining.",
                 "Built 42 OAuth, JWT, email-based second-factor verification, and a Docker Compose runtime setup in transcendence.",
@@ -645,9 +647,9 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
     story.append(
         bullet_list(
             [
-                "OPIC AL - 2024.09.20",
                 "SQLD - 2021.12.17",
                 "Big Data Analysis Engineer - 2024.12.20",
+                "Engineer Information Processing - 2026.09.11",
                 "KATUSA, Eighth Army interpretation and administrative support - 2020.09 - 2022.03",
             ],
             styles,
@@ -711,6 +713,34 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     story.append(Spacer(1, 10))
 
     story.extend(section_title("Representative Projects", styles))
+    story.append(
+        project_card(
+            "ft_malloc",
+            "Thread-safe dynamic memory allocator in C",
+            "mmap 기반으로 malloc, free, realloc, show_alloc_mem, show_alloc_mem_ex를 구현하고 다중 스레드 환경까지 확장했습니다.",
+            [
+                (
+                    "Problem",
+                    "할당자는 정렬, 단편화, 잘못된 포인터, 크기 계산 overflow, munmap 실패를 처리하면서 동시 접근에도 일관성을 유지해야 했습니다.",
+                ),
+                (
+                    "Approach",
+                    "TINY·SMALL·LARGE zone의 box와 tag 메타데이터로 할당 상태를 추적하고, free tag 재사용·분할·병합을 구현했습니다. zone별 pthread mutex로 상태 변경을 보호하고 munmap 성공 후에만 목록을 갱신했습니다.",
+                ),
+                (
+                    "Result",
+                    "16-byte 정렬과 실패 안전한 메모리 반환을 구현하고, 멀티스레드 스트레스 테스트에서 교착과 메모리 손상 없이 동작을 검증했습니다.",
+                ),
+            ],
+            [
+                "malloc, free, realloc 및 메모리 상태 출력 함수 구현",
+                "free tag 탐색·분할·재사용과 인접 tag 병합",
+                "show_alloc_mem_ex에서 사용 중인 영역을 hexadecimal dump로 출력",
+            ],
+            ["C", "mmap", "pthread mutex", "Dynamic memory", "Thread safety"],
+            styles,
+        )
+    )
     story.append(
         project_card(
             "심심조각",
@@ -914,6 +944,34 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
 
     story.append(PageBreak())
     story.extend(section_title("Representative Projects", styles))
+    story.append(
+        project_card(
+            "ft_malloc",
+            "Thread-safe dynamic memory allocator in C",
+            "Implemented malloc, free, realloc, show_alloc_mem, and show_alloc_mem_ex on top of mmap, then extended the allocator for concurrent access.",
+            [
+                (
+                    "Problem",
+                    "A memory allocator must handle alignment, fragmentation, invalid pointers, size overflow, and munmap failure while remaining consistent under concurrent access.",
+                ),
+                (
+                    "Approach",
+                    "Tracked allocation with boxes and tag metadata across TINY, SMALL, and LARGE zones. Implemented free-tag reuse, splitting, and coalescing, protected each zone with a pthread mutex, and updated box lists only after munmap succeeds.",
+                ),
+                (
+                    "Result",
+                    "Achieved 16-byte alignment and failure-safe release, and verified multithreaded stress runs without deadlocks or memory corruption.",
+                ),
+            ],
+            [
+                "Implemented malloc, free, realloc, and memory inspection functions.",
+                "Added free-tag lookup, splitting, reuse, and adjacent-tag coalescing.",
+                "Printed live user areas as hexadecimal dumps in show_alloc_mem_ex.",
+            ],
+            ["C", "mmap", "pthread mutex", "Dynamic memory", "Thread safety"],
+            styles,
+        )
+    )
     story.append(
         project_card(
             "Simsimjogak",

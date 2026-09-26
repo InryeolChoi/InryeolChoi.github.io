@@ -611,7 +611,7 @@ export const certificationItems: CertificationItem[] = [
     acquiredAt: "2021.12.17",
     description: {
       ko: "데이터 모델링과 SQL 기본 및 활용 능력을 검정하는 자격증입니다.",
-      en: "A certification that validates practical understanding of data modeling and core SQL usage.",
+      en: "A certification issued by the Korea Data Agency (KDATA) and accredited by the South Korean government, validating practical understanding of data modeling and core SQL usage.",
     },
   },
   {
@@ -622,7 +622,7 @@ export const certificationItems: CertificationItem[] = [
     acquiredAt: "2024.12.20",
     description: {
       ko: "빅데이터 이해, 탐색, 모델링, 결과 해석 등 데이터 분석 전반을 다루는 국가기술자격입니다.",
-      en: "A national technical certification covering big-data understanding, analysis workflow, modeling, and interpretation.",
+      en: "A South Korean national technical certification issued by the Korea Data Agency (KDATA) under the national qualification system, covering big-data understanding, analysis workflow, modeling, and interpretation.",
     },
   },
   {
@@ -633,7 +633,7 @@ export const certificationItems: CertificationItem[] = [
     acquiredAt: "2026.09.11",
     description: {
       ko: "소프트웨어 설계, 개발, 데이터베이스 구축 등 정보처리 전반을 다루는 국가기술자격입니다.",
-      en: "A national technical certification covering software design, development, database implementation, and information processing.",
+      en: "A South Korean national technical certification issued by the Human Resources Development Service of Korea (HRD Korea) under the national qualification system, covering software design, development, database implementation, and information processing.",
     },
   },
 ];
