@@ -444,8 +444,9 @@ img {
   font-size: clamp(1.3rem, 2.2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.2;
-  max-width: 24ch;
+  max-width: 100%;
   white-space: normal;
+  word-break: keep-all;
   text-wrap: balance;
 }
 
@@ -484,6 +485,7 @@ img {
   margin: 1rem 0 0;
   font-size: 1rem;
   line-height: 1.8;
+  word-break: keep-all;
 }
 
 .heroIntro p {
