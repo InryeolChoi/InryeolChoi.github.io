@@ -2,7 +2,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
@@ -26,12 +26,10 @@ OUTPUT_DIR = ROOT / "public" / "downloads"
 FONT_PATH = Path("/System/Library/Fonts/Supplemental/AppleGothic.ttf")
 FONT_NAME = "AppleGothic"
 
-INK = colors.HexColor("#111827")
+INK = colors.HexColor("#172235")
 SOFT = colors.HexColor("#475467")
-LINE = colors.HexColor("#d8dee8")
-MUTED = colors.HexColor("#f5f7fb")
-ACCENT = colors.HexColor("#1d4ed8")
-ACCENT_SOFT = colors.HexColor("#eaf1ff")
+LINE = colors.HexColor("#cdd7e3")
+ACCENT = colors.HexColor("#2859a6")
 
 
 def register_fonts() -> None:
@@ -89,7 +87,7 @@ def make_styles() -> dict[str, ParagraphStyle]:
     section = ParagraphStyle(
         "Section",
         parent=body,
-        fontSize=11.5,
+        fontSize=11.3,
         leading=15,
         textColor=INK,
         spaceBefore=6,
@@ -113,16 +111,16 @@ def make_styles() -> dict[str, ParagraphStyle]:
         "CoverTitle",
         parent=body,
         fontSize=28,
-        leading=34,
+        leading=35,
         textColor=INK,
-        alignment=TA_CENTER,
+        alignment=TA_LEFT,
     )
     cover_subtitle = ParagraphStyle(
         "CoverSubtitle",
         parent=subtitle,
         fontSize=10.5,
         leading=15,
-        alignment=TA_CENTER,
+        alignment=TA_LEFT,
     )
     return {
         "body": body,
@@ -183,12 +181,11 @@ def section_title(title: str, styles: dict[str, ParagraphStyle]) -> list:
             [[p(title, styles["section"])]],
             colWidths=[None],
             style=[
-                ("BACKGROUND", (0, 0), (-1, -1), ACCENT_SOFT),
-                ("BOX", (0, 0), (-1, -1), 0.4, LINE),
-                ("LEFTPADDING", (0, 0), (-1, -1), 8),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                ("TOPPADDING", (0, 0), (-1, -1), 5),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                ("LINEBELOW", (0, 0), (-1, -1), 0.6, LINE),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 3),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ],
         ),
         Spacer(1, 5),
@@ -224,13 +221,11 @@ def tag_table(tags: list[str], styles: dict[str, ParagraphStyle], columns: int =
     table.setStyle(
         TableStyle(
             [
-                ("BACKGROUND", (0, 0), (-1, -1), MUTED),
-                ("BOX", (0, 0), (-1, -1), 0.25, LINE),
-                ("INNERGRID", (0, 0), (-1, -1), 0.25, colors.white),
-                ("LEFTPADDING", (0, 0), (-1, -1), 5),
+                ("LINEBELOW", (0, -1), (-1, -1), 0.35, LINE),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
                 ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-                ("TOPPADDING", (0, 0), (-1, -1), 4),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                ("TOPPADDING", (0, 0), (-1, -1), 5),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ]
         )
     )
@@ -242,8 +237,8 @@ def card(flowables: list, padding: int = 7) -> Table:
     table.setStyle(
         TableStyle(
             [
-                ("BOX", (0, 0), (-1, -1), 0.45, LINE),
-                ("BACKGROUND", (0, 0), (-1, -1), colors.white),
+                ("LINEBEFORE", (0, 0), (0, -1), 1.5, ACCENT),
+                ("LINEBELOW", (0, -1), (-1, -1), 0.35, LINE),
                 ("LEFTPADDING", (0, 0), (-1, -1), padding),
                 ("RIGHTPADDING", (0, 0), (-1, -1), padding),
                 ("TOPPADDING", (0, 0), (-1, -1), padding),
@@ -299,7 +294,7 @@ def header_block(styles: dict[str, ParagraphStyle], document_type: str) -> list:
                 [
                     [
                         p("Inryeol Choi", styles["title"]),
-                        p("Backend Developer / System-oriented learner", styles["subtitle"]),
+                        p("Backend Developer", styles["subtitle"]),
                     ],
                     [
                         p(document_type, styles["label"]),
@@ -320,41 +315,40 @@ def header_block(styles: dict[str, ParagraphStyle], document_type: str) -> list:
 
 def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     story = []
-    story.extend(header_block(styles, "CV"))
-    story.extend(section_title("Profile", styles))
+    story.extend(header_block(styles, "이력서"))
+    story.extend(section_title("소개", styles))
     story.append(
         p(
-            "백엔드 시스템의 구조와 흐름을 이해하고 설계하는 개발자를 지향합니다. "
-            "Java, Spring, Docker, Linux, 데이터베이스를 중심으로 학습했고, "
-            "실제 프로젝트에서는 인증, 데이터 저장, API 흐름, 운영 환경까지 하나의 서비스 구조로 연결하는 경험을 쌓았습니다.",
+            "백엔드의 데이터 흐름과 운영 중인 상태를 함께 다루는 개발자입니다. "
+            "Go와 SQLite로 1,400여 편의 학습 기록을 이관·편집하는 블로그를 만들었고, "
+            "Spring Boot 서비스에서는 인증, 데이터 저장, AI 응답 연동과 예외 처리를 구현했습니다.",
             styles["body"],
         )
     )
     story.append(Spacer(1, 7))
 
-    story.extend(section_title("Core Strengths", styles))
+    story.extend(section_title("핵심 역량", styles))
     story.append(
         bullet_list(
             [
                 "요구사항을 기능 단위가 아니라 데이터 흐름, 인증 흐름, 운영 환경까지 포함한 구조로 파악합니다.",
                 "C/C++ 시스템 과제와 42서울 프로젝트를 통해 프로세스, 파일 디스크립터, 네트워크, 동시성의 기초를 구현 맥락에서 익혔습니다.",
-                "Spring Boot, Django REST Framework, FastAPI를 비교하며 백엔드 계층 분리와 API 설계 방식을 학습했습니다.",
-                "GitHub Actions, Docker, Nginx, GCP Compute Engine을 활용해 개발과 배포 흐름을 재현 가능하게 구성해본 경험이 있습니다.",
+                "콘텐츠 이관 오류를 전수 검사하고 재실행 결과가 수렴하도록 보정 규칙을 코드로 관리했습니다.",
+                "Spring Boot와 Django REST Framework 프로젝트에서 인증, API, 데이터베이스 흐름을 구현했습니다.",
             ],
             styles,
         )
     )
     story.append(Spacer(1, 7))
 
-    story.extend(section_title("Skills", styles))
+    story.extend(section_title("기술", styles))
     story.append(
         tag_table(
             [
                 "Java",
                 "Spring Boot",
-                "Python",
-                "Django",
-                "FastAPI",
+                "Go",
+                "SQLite",
                 "C",
                 "C++",
                 "PostgreSQL",
@@ -363,13 +357,8 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
                 "Docker",
                 "Nginx",
                 "Linux",
-                "GCP",
                 "Git",
-                "GitHub Actions",
-                "React",
-                "TypeScript",
-                "R",
-                "SQL",
+                "Django REST Framework",
             ],
             styles,
             columns=5,
@@ -377,7 +366,7 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(Spacer(1, 7))
 
-    story.extend(section_title("Experience", styles))
+    story.extend(section_title("경력", styles))
     story.append(
         compact_entry(
             "PwC Korea - Full-time",
@@ -404,8 +393,7 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
         )
     )
 
-    story.append(PageBreak())
-    story.extend(section_title("Selected Projects", styles))
+    story.extend(section_title("주요 프로젝트", styles))
     story.append(
         compact_entry(
             "심심조각 - Spring Boot backend",
@@ -421,12 +409,13 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         compact_entry(
-            "Active Recall Quiz",
-            "Next.js, React, FastAPI, SQLite, GitHub Actions",
-            "외부 markdown 노트를 동기화해 문제 생성, 시험 응시, 채점, 오답 복습까지 이어지는 학습 앱입니다.",
+            "열렬히.뛰기 - 개인 블로그",
+            "Go, SQLite, 콘텐츠 이관, 운영 데이터 보존",
+            "노션과 GitHub에 흩어진 학습 기록 1,400여 편을 이관하고, 공개 화면과 Admin 편집기를 Go 단일 바이너리로 구현했습니다.",
             [
-                "노트 저장소와 앱을 GitHub Actions로 연결해 콘텐츠 동기화 흐름 구성",
-                "시험 생성, 제출, 채점, 결과 조회 API를 나누어 학습 흐름 구현",
+                "수식·목록·이미지·내부 링크 오류를 유형별로 전수 검사하고 변환 규칙 보정",
+                "재이관 시 결과가 수렴하도록 분류·제외·본문 보정 규칙을 코드로 관리",
+                "서버 DB를 정본으로 두고 배포와 DB 교체를 분리, 백업과 업로드 가드 구성",
             ],
             styles,
         )
@@ -446,7 +435,7 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
         )
     )
 
-    story.extend(section_title("Education and Learning", styles))
+    story.extend(section_title("학력과 학습", styles))
     story.append(
         compact_entry(
             "Dongguk University",
@@ -472,7 +461,7 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
         )
     )
 
-    story.extend(section_title("Certifications and Other", styles))
+    story.extend(section_title("자격 및 기타", styles))
     story.append(
         bullet_list(
             [
@@ -495,9 +484,9 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
     story.extend(section_title("Profile", styles))
     story.append(
         p(
-            "Backend-oriented developer focused on understanding and designing the structure and flow of systems. "
-            "I have built my foundation around Java, Spring, Docker, Linux, and databases, and I have practiced "
-            "connecting authentication, data persistence, API flow, and runtime environments into coherent service architecture.",
+            "Backend developer focused on data flow and preserving live state. "
+            "I built a Go and SQLite blog that migrated and edits more than 1,400 study notes, "
+            "and implemented authentication, persistence, AI response integration, and error handling in a Spring Boot service.",
             styles["body"],
         )
     )
@@ -509,8 +498,8 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
             [
                 "Understand requirements through data flow, authentication flow, runtime constraints, and operational context, not only through feature lists.",
                 "Built practical fundamentals in processes, file descriptors, networking, and concurrency through C/C++ system projects at 42 Seoul.",
-                "Studied backend layering and API design by comparing Spring Boot, Django REST Framework, and FastAPI in project contexts.",
-                "Used GitHub Actions, Docker, Nginx, and GCP Compute Engine to make development and deployment flows more reproducible.",
+                "Audited content migration errors and codified correction rules so repeated imports converge.",
+                "Implemented authentication, APIs, and database flows in Spring Boot and Django REST Framework projects.",
             ],
             styles,
         )
@@ -523,9 +512,8 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
             [
                 "Java",
                 "Spring Boot",
-                "Python",
-                "Django",
-                "FastAPI",
+                "Go",
+                "SQLite",
                 "C",
                 "C++",
                 "PostgreSQL",
@@ -534,13 +522,8 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
                 "Docker",
                 "Nginx",
                 "Linux",
-                "GCP",
                 "Git",
-                "GitHub Actions",
-                "React",
-                "TypeScript",
-                "R",
-                "SQL",
+                "Django REST Framework",
             ],
             styles,
             columns=5,
@@ -592,12 +575,13 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         compact_entry(
-            "Active Recall Quiz",
-            "Next.js, React, FastAPI, SQLite, GitHub Actions",
-            "A learning app that syncs external markdown notes and turns them into quiz creation, exam submission, grading, and wrong-answer review flows.",
+            "열렬히.뛰기 - Personal blog",
+            "Go, SQLite, content migration, live data preservation",
+            "Built a Go and SQLite blog with a public site and admin editor, migrating more than 1,400 study notes from Notion and GitHub.",
             [
-                "Connected the note repository and app with GitHub Actions to support content synchronization.",
-                "Separated exam creation, submission, grading, and result lookup into API flows.",
+                "Audited equation, list, image, and internal-link errors across the migrated content and fixed conversion rules.",
+                "Codified curation rules so repeated imports converge instead of overwriting manual edits.",
+                "Made the server database authoritative, separated deployment from database replacement, and added backups and upload guards.",
             ],
             styles,
         )
@@ -680,16 +664,16 @@ def project_card(
         content.extend([p(label, styles["label"]), p(text, styles["body"]), Spacer(1, 3)])
     if highlights:
         content.extend([Spacer(1, 2), bullet_list(highlights, styles), Spacer(1, 4)])
-    content.extend([p("Tech Stack", styles["label"]), tag_table(tech, styles, columns=4)])
+    content.extend([p("사용 기술" if details[0][0] == "문제" else "Tech Stack", styles["label"]), tag_table(tech, styles, columns=4)])
     return KeepTogether([card(content), Spacer(1, 8)])
 
 
 def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     story = [
-        Spacer(1, 55),
+        Spacer(1, 20),
         p("Inryeol Choi", styles["cover_title"]),
         Spacer(1, 8),
-        p("Backend Portfolio", styles["cover_title"]),
+        p("백엔드 포트폴리오", styles["cover_title"]),
         Spacer(1, 12),
         p(
             "서비스 흐름, 데이터 구조, 인증, 운영 환경을 함께 바라보며 백엔드 시스템을 설계하고 구현한 프로젝트 기록입니다.",
@@ -698,8 +682,8 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
         Spacer(1, 12),
         p("dlsfuf0316@gmail.com | github.com/InryeolChoi | Seoul, South Korea", styles["cover_subtitle"]),
     ]
-    story.append(Spacer(1, 52))
-    story.extend(section_title("Portfolio Focus", styles))
+    story.append(Spacer(1, 24))
+    story.extend(section_title("작업의 초점", styles))
     story.append(
         bullet_list(
             [
@@ -712,7 +696,7 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(Spacer(1, 10))
 
-    story.extend(section_title("Representative Projects", styles))
+    story.extend(section_title("주요 프로젝트", styles))
     story.append(
         project_card(
             "ft_malloc",
@@ -720,15 +704,15 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             "mmap 기반으로 malloc, free, realloc, show_alloc_mem, show_alloc_mem_ex를 구현하고 다중 스레드 환경까지 확장했습니다.",
             [
                 (
-                    "Problem",
+                    "문제",
                     "할당자는 정렬, 단편화, 잘못된 포인터, 크기 계산 overflow, munmap 실패를 처리하면서 동시 접근에도 일관성을 유지해야 했습니다.",
                 ),
                 (
-                    "Approach",
+                    "구현",
                     "TINY·SMALL·LARGE zone의 box와 tag 메타데이터로 할당 상태를 추적하고, free tag 재사용·분할·병합을 구현했습니다. zone별 pthread mutex로 상태 변경을 보호하고 munmap 성공 후에만 목록을 갱신했습니다.",
                 ),
                 (
-                    "Result",
+                    "결과",
                     "16-byte 정렬과 실패 안전한 메모리 반환을 구현하고, 멀티스레드 스트레스 테스트에서 교착과 메모리 손상 없이 동작을 검증했습니다.",
                 ),
             ],
@@ -748,15 +732,15 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             "감정 기록 기반 일기 서비스에서 소셜 로그인, 일기 CRUD, AI 편지, 요약, 월간 키워드 리포트 흐름을 하나의 백엔드로 연결했습니다.",
             [
                 (
-                    "Problem",
+                    "문제",
                     "소셜 로그인, 토큰 재발급, 일기 데이터 관리, 외부 AI 응답 생성이 서로 끊기지 않고 안정적으로 이어져야 했습니다.",
                 ),
                 (
-                    "Approach",
+                    "구현",
                     "Spring Security와 JWT를 중심으로 인증 흐름을 구성하고, MySQL과 Redis를 연결해 사용자 정보와 토큰 상태를 분리했습니다. AI 응답은 로컬 AI 서버와 연동하고, 응답 형식이 달라지는 예외 상황을 분석해 파싱 로직을 보강했습니다.",
                 ),
                 (
-                    "Result",
+                    "결과",
                     "인증, 데이터 저장, AI 생성, 월간 조회 흐름을 하나의 백엔드 안에서 관리할 수 있는 구조를 만들었습니다.",
                 ),
             ],
@@ -771,29 +755,29 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         project_card(
-            "Active Recall Quiz",
-            "Study app that turns markdown notes into exam and review flows",
-            "외부 markdown 노트를 동기화해 문제 생성, 시험 응시, 채점, 오답 복습까지 이어지는 학습 앱입니다.",
+            "열렬히.뛰기",
+            "Go와 SQLite로 만든 학습 기록 블로그",
+            "노션과 GitHub에 흩어진 학습 기록 1,400여 편을 이관하고, 공개 화면과 Admin 편집기를 Go 단일 바이너리로 구현했습니다.",
             [
                 (
-                    "Problem",
-                    "학습 자료가 markdown 노트에 흩어져 있어 시험, 채점, 복습으로 이어지는 반복 학습 흐름을 만들기 어려웠습니다.",
+                    "문제",
+                    "이관 중 수식·목록·이미지·내부 링크가 깨질 수 있었고, 이후 재이관이나 배포가 새 글을 덮어쓰지 않아야 했습니다.",
                 ),
                 (
-                    "Approach",
-                    "노트 저장소와 앱을 GitHub Actions로 연결하고, FastAPI 기반 API를 시험 생성, 제출, 채점, 결과 조회 흐름으로 나눴습니다.",
+                    "구현",
+                    "이관 오류를 유형별로 전수 검사해 변환 규칙을 고쳤습니다. 사람의 분류·제외·본문 보정은 코드에 기록해 재실행 결과가 수렴하도록 했습니다.",
                 ),
                 (
-                    "Result",
-                    "노트 작성과 학습 앱 사용이 이어지는 구조를 만들고, 오답 중심의 복습 흐름까지 확장했습니다.",
+                    "결과",
+                    "서버 DB를 정본으로 삼아 코드 배포와 DB 교체를 분리하고 백업·업로드 가드를 마련했습니다.",
                 ),
             ],
             [
-                "외부 markdown 콘텐츠 동기화 구조 구성",
-                "시험 생성, 제출, 채점, 결과 조회 API 흐름 정리",
-                "Next.js 화면과 FastAPI 백엔드를 분리해 학습 워크플로우 구현",
+                "노션 블록을 Markdown으로 변환하고 GitHub 글·이미지·내부 링크 이관",
+                "공개 렌더러를 공유하는 미리보기와 블록 인라인 편집 구현",
+                "변경 충돌 검사와 재이관 시 수렴하는 보정 규칙 적용",
             ],
-            ["Next.js", "React", "FastAPI", "SQLite", "GitHub Actions", "Markdown"],
+            ["Go", "SQLite", "Markdown", "Content migration", "Backup"],
             styles,
         )
     )
@@ -804,15 +788,15 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             "여러 사용자 연결과 채널 상태를 다루는 IRC 서버를 구현하며 네트워크 서버 구조와 이벤트 기반 입출력 방식을 학습했습니다.",
             [
                 (
-                    "Problem",
+                    "문제",
                     "여러 클라이언트 연결, 명령 처리, 채널 상태가 동시에 움직이기 때문에 기능을 추가할수록 서버 구조가 쉽게 복잡해질 수 있었습니다.",
                 ),
                 (
-                    "Approach",
+                    "구현",
                     "서버의 큰 책임을 먼저 나누고, kqueue 기반 이벤트 감시 흐름을 중심으로 클라이언트 연결과 채널 상태 처리를 정리했습니다.",
                 ),
                 (
-                    "Result",
+                    "결과",
                     "이벤트 기반 서버가 연결, 명령, 상태를 어떤 흐름으로 처리하는지 구현 맥락에서 이해했습니다.",
                 ),
             ],
@@ -832,15 +816,15 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             "쉘이 입력을 해석하고 여러 명령을 연결해 실행하는 과정을 직접 구현하며 파싱과 프로세스 흐름을 익힌 프로젝트입니다.",
             [
                 (
-                    "Problem",
+                    "문제",
                     "쉘은 입력 문자열을 그대로 실행하는 것이 아니라 파이프, 리다이렉션, 환경 변수 같은 규칙에 맞게 구조화해야 했습니다.",
                 ),
                 (
-                    "Approach",
+                    "구현",
                     "입력이 어떤 단계로 파싱되어 실행 구조로 이어지는지 학습하고, pipe, fork, dup2, execve를 이용해 여러 명령을 연결했습니다.",
                 ),
                 (
-                    "Result",
+                    "결과",
                     "문자열 파싱, 실행 계획 생성, 프로세스 연결이 한 흐름으로 이어지는 방식을 직접 구현했습니다.",
                 ),
             ],
@@ -860,15 +844,15 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             "실제 웹 서비스 흐름을 기준으로 인증, 데이터 저장, 실행 환경까지 포함한 백엔드를 구축했습니다.",
             [
                 (
-                    "Problem",
+                    "문제",
                     "API 서버, 로그인, 보안, 데이터베이스, 배포용 실행 환경이 함께 맞물려야 했습니다.",
                 ),
                 (
-                    "Approach",
+                    "구현",
                     "Django REST Framework로 API를 구성하고, 42 OAuth 로그인, JWT 발급과 재발급, 이메일 기반 2차 인증 링크를 인증 흐름에 통합했습니다.",
                 ),
                 (
-                    "Result",
+                    "결과",
                     "인증 실패와 토큰 만료 상황까지 고려한 백엔드 흐름과 PostgreSQL, Docker Compose 기반 실행 환경을 구성했습니다.",
                 ),
             ],
@@ -881,34 +865,6 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
             styles,
         )
     )
-    story.append(
-        project_card(
-            "Database Playground / Profile Site / Active Recall Notes",
-            "Supporting repositories for data practice, portfolio publishing, and study content modeling",
-            "학습과 개인 운영을 위해 데이터베이스 실습, 정적 사이트 배포, markdown 기반 학습 콘텐츠 모델링 저장소를 꾸준히 정리했습니다.",
-            [
-                (
-                    "Problem",
-                    "개념 학습이 일회성으로 끝나지 않도록 실습 저장소와 배포 가능한 산출물로 남길 필요가 있었습니다.",
-                ),
-                (
-                    "Approach",
-                    "PostgreSQL와 Docker 기반 SQL 실습 저장소, React 기반 프로필 사이트, markdown 학습 노트 저장소를 분리해 관리했습니다.",
-                ),
-                (
-                    "Result",
-                    "학습, 기록, 배포, 자동화를 연결하는 개인 개발 워크플로우를 만들었습니다.",
-                ),
-            ],
-            [
-                "PostgreSQL와 Docker 기반 데이터베이스 실습",
-                "React, TypeScript, Vite 기반 GitHub Pages 프로필 사이트 구축",
-                "GitHub Actions로 markdown 노트와 학습 앱 콘텐츠 동기화",
-            ],
-            ["PostgreSQL", "Docker", "React", "TypeScript", "Vite", "Markdown", "GitHub Actions"],
-            styles,
-        )
-    )
 
     doc = ProfileDocTemplate(OUTPUT_DIR / "inryeol-choi-portfolio.pdf", "Inryeol Choi Portfolio")
     doc.build(story)
@@ -916,7 +872,7 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
 
 def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
     story = [
-        Spacer(1, 55),
+        Spacer(1, 20),
         p("Inryeol Choi", styles["cover_title"]),
         Spacer(1, 8),
         p("Backend Portfolio", styles["cover_title"]),
@@ -928,7 +884,7 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
         Spacer(1, 12),
         p("dlsfuf0316@gmail.com | github.com/InryeolChoi | Seoul, South Korea", styles["cover_subtitle"]),
     ]
-    story.append(Spacer(1, 52))
+    story.append(Spacer(1, 24))
     story.extend(section_title("Portfolio Focus", styles))
     story.append(
         bullet_list(
@@ -942,7 +898,6 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(Spacer(1, 10))
 
-    story.append(PageBreak())
     story.extend(section_title("Representative Projects", styles))
     story.append(
         project_card(
@@ -1002,29 +957,29 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(
         project_card(
-            "Active Recall Quiz",
-            "Study app that turns markdown notes into exam and review flows",
-            "A learning app that syncs external markdown notes and turns them into quiz creation, exam submission, grading, and wrong-answer review flows.",
+            "열렬히.뛰기",
+            "Go and SQLite blog for long-lived study notes",
+            "Built a public site and admin editor in a single Go binary, migrating more than 1,400 study notes from Notion and GitHub.",
             [
                 (
                     "Problem",
-                    "Study materials were scattered across markdown notes, making it difficult to turn them into a repeatable exam, grading, and review cycle.",
+                    "Equations, lists, images, and internal links could break during migration; later imports and deployments also had to preserve new writing.",
                 ),
                 (
                     "Approach",
-                    "Connected the note repository and app through GitHub Actions, then structured the FastAPI backend around exam creation, submission, grading, and result lookup.",
+                    "Audited migration defects by type, fixed conversion rules, and codified manual classification and corrections so repeated imports converge.",
                 ),
                 (
                     "Result",
-                    "Created a flow where note writing and app-based review reinforce each other, including wrong-answer review.",
+                    "Made the server database authoritative, separated code deployment from database replacement, and added backups and upload guards.",
                 ),
             ],
             [
-                "Structured synchronization for external markdown content.",
-                "Separated exam creation, submission, grading, and result lookup API flows.",
-                "Built the study workflow with a Next.js frontend and FastAPI backend.",
+                "Converted Notion blocks to Markdown and migrated GitHub notes, images, and internal links.",
+                "Shared the public renderer with previews and added inline block editing.",
+                "Added edit conflict checks and curation rules for convergent re-imports.",
             ],
-            ["Next.js", "React", "FastAPI", "SQLite", "GitHub Actions", "Markdown"],
+            ["Go", "SQLite", "Markdown", "Content migration", "Backup"],
             styles,
         )
     )
@@ -1109,34 +1064,6 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
                 "Set up a development environment with PostgreSQL and Docker Compose.",
             ],
             ["Django", "DRF", "PostgreSQL", "Docker", "JWT", "OAuth"],
-            styles,
-        )
-    )
-    story.append(
-        project_card(
-            "Database Playground / Profile Site / Active Recall Notes",
-            "Supporting repositories for data practice, portfolio publishing, and study content modeling",
-            "Maintained supporting repositories for database practice, static site publishing, and markdown-based study content modeling.",
-            [
-                (
-                    "Problem",
-                    "I wanted concept study to remain reusable instead of disappearing after one-time practice.",
-                ),
-                (
-                    "Approach",
-                    "Separated a PostgreSQL and Docker SQL practice repository, a React profile site, and a markdown study note repository.",
-                ),
-                (
-                    "Result",
-                    "Built a personal development workflow that connects study, documentation, publishing, and automation.",
-                ),
-            ],
-            [
-                "Practiced databases with PostgreSQL and Docker.",
-                "Built a GitHub Pages profile site with React, TypeScript, and Vite.",
-                "Synchronized markdown notes and learning app content with GitHub Actions.",
-            ],
-            ["PostgreSQL", "Docker", "React", "TypeScript", "Vite", "Markdown", "GitHub Actions"],
             styles,
         )
     )

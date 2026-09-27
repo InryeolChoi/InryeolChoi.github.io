@@ -17,8 +17,8 @@
   --accent: #2563eb;
   --accent-deep: #1d4ed8;
   --accent-soft: #dbeafe;
-  --shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.06);
-  --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 4px 16px rgba(15, 23, 42, 0.035);
+  --shadow-strong: 0 10px 28px rgba(15, 23, 42, 0.055);
   --page-bg: #ffffff;
   --header-surface: rgba(255, 255, 255, 0.94);
   --header-pill: rgba(248, 250, 252, 0.85);
@@ -35,7 +35,7 @@
   --skill-icon-surface: #1f2937;
   --course-group-surface: linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(255, 255, 255, 0.98));
   --course-pill-border: rgba(226, 232, 240, 0.95);
-  --course-pill-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+  --course-pill-shadow: none;
 }
 
 :root[data-theme="dark"] {
@@ -50,8 +50,8 @@
   --accent: #60a5fa;
   --accent-deep: #93c5fd;
   --accent-soft: rgba(96, 165, 250, 0.16);
-  --shadow-soft: 0 16px 40px rgba(2, 6, 23, 0.34);
-  --shadow-strong: 0 28px 72px rgba(2, 6, 23, 0.45);
+  --shadow-soft: 0 5px 18px rgba(2, 6, 23, 0.16);
+  --shadow-strong: 0 12px 30px rgba(2, 6, 23, 0.22);
   --page-bg: radial-gradient(circle at top, rgba(30, 41, 59, 0.5), rgba(11, 18, 32, 1) 50%);
   --header-surface: rgba(11, 18, 32, 0.84);
   --header-pill: rgba(15, 23, 42, 0.86);
@@ -68,7 +68,7 @@
   --skill-icon-surface: #0f172a;
   --course-group-surface: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(17, 27, 43, 0.98));
   --course-pill-border: rgba(148, 163, 184, 0.22);
-  --course-pill-shadow: 0 10px 24px rgba(2, 6, 23, 0.3);
+  --course-pill-shadow: none;
 }
 
 * {
@@ -420,10 +420,9 @@ img {
 .sectionKicker,
 .timelinePeriod,
 .metaLabel {
-  font-size: 1rem;
+  font-size: 0.93rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.015em;
   color: var(--accent-deep);
 }
 
@@ -497,7 +496,7 @@ img {
 .wideCard,
 .sectionIntro {
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow-soft);
 }
@@ -537,8 +536,7 @@ img {
 .cardHeader a:hover,
 .wideCardHeader a:hover,
 .socialRow a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(20, 33, 61, 0.12);
+  opacity: 0.88;
 }
 
 .anchorNav {
@@ -566,7 +564,7 @@ img {
 .photoShell {
   width: min(100%, 360px);
   padding: 1rem;
-  border-radius: 32px;
+  border-radius: 20px;
   background: var(--surface-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-strong);
@@ -577,7 +575,7 @@ img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: 24px;
+  border-radius: 14px;
 }
 
 .sectionIntro {
@@ -647,7 +645,7 @@ img {
 .stackSection {
   padding: 1.5rem 1.6rem;
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: 18px;
   background: var(--surface);
   box-shadow: var(--shadow-soft);
 }
@@ -759,7 +757,7 @@ img {
 
 .timelineBody {
   padding: 1.15rem 1.2rem;
-  border-radius: 24px;
+  border-radius: 16px;
   border: 1px solid var(--line);
   background: var(--surface-strong);
   box-shadow: var(--shadow-soft);
@@ -781,7 +779,7 @@ img {
 .courseGroupCard {
   padding: 1rem 1.05rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 20px;
+  border-radius: 14px;
   background: var(--course-group-surface);
 }
 
@@ -789,8 +787,7 @@ img {
   margin: 0;
   font-size: 0.95rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--accent-deep);
 }
 
@@ -1190,7 +1187,7 @@ img {
   .sectionIntro,
   .personalInfoBlock,
   .stackSection {
-    border-radius: 20px;
+    border-radius: 14px;
   }
 
   .anchorNav {

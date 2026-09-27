@@ -315,7 +315,6 @@ export const projectItems: ProjectItem[] = [
       ],
     },
     githubUrl: "https://github.com/InryeolChoi/inchoi_blog",
-    liveUrl: "https://inquieto.dev",
   },
   {
     title: "ft_malloc",
