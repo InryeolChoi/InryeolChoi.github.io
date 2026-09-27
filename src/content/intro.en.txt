@@ -1,5 +1,3 @@
-I aspire to become a developer who understands and designs the structure and flow of backend systems. I am a developer who keeps moving forward with steady curiosity. I first encountered programming through university courses, then began studying more seriously through algorithms and continued that journey at 42 Seoul.
+Hello, I’m Inryeol Choi. I use AI in development while working to understand how things operate and verify the results myself. Studying data analysis at university sparked my interest in the systems behind data, and systems programming projects at 42 Seoul helped me build a foundation in computer science.
 
-At first, I wanted to build innovative services through big data, but the more I studied data analysis, the more I became interested in designing how data is stored, managed, and processed.
-
-That shift naturally led me deeper into computer science as a whole, and I am now continuously studying backend programming, databases, and cloud technologies. I want to keep growing and build stronger services through technology.
+As AI makes implementation faster, I believe it becomes even more important to explain why code works and spot incorrect results. I focus on designing backend and database flows myself, then checking the outcome through tests and real behavior. I want to use powerful tools while remaining accountable for the decisions and quality behind what I build.

@@ -25,8 +25,8 @@ export const profile = {
   name: "Inryeol Choi",
   githubUrl: "https://github.com/InryeolChoi",
   headline: {
-    ko: "늘 우직하게, 늘 갈망하는 개발자",
-    en: "Stay foolish, Stay hungry",
+    ko: "원리를 이해하고, 결과를 검증하는 개발자",
+    en: "Understand the principles. Verify the results.",
   },
   intro: {
     ko: introKo.trim(),
