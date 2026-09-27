@@ -281,6 +281,43 @@ export const portfolioItems: PortfolioItem[] = [
 
 export const projectItems: ProjectItem[] = [
   {
+    title: "열렬히.뛰기",
+    role: {
+      ko: "개인 블로그의 콘텐츠 이관·편집·운영 전 과정 설계 및 구현",
+      en: "Designed and built the content migration, editing, and operations workflow for a personal blog",
+    },
+    problem: {
+      ko: "노션과 GitHub에 흩어진 학습 노트 1,400여 편을 옮기는 과정에서 수식·목록·이미지·내부 링크가 깨지거나 내용이 빠질 수 있었습니다. 웹에서 글을 쓰기 시작한 뒤에는 재이관과 배포가 새 글을 덮어쓰지 않도록 해야 했습니다.",
+      en: "Migrating more than 1,400 study notes from Notion and GitHub risked losing content or breaking equations, lists, images, and internal links. Once writing moved to the web, re-imports and deployments also had to preserve new edits.",
+    },
+    approach: {
+      ko: "Go 단일 바이너리와 SQLite로 공개 화면과 Admin 편집기를 만들었습니다. 이관 결과의 오류를 유형별로 전수 검사해 변환 규칙을 고쳤고, 사람이 정한 분류·제외·본문 보정은 코드에 기록해 재실행 결과가 수렴하도록 했습니다. 서버 DB를 정본으로 삼아 코드 배포와 DB 교체를 분리하고 백업·업로드 가드를 마련했습니다.",
+      en: "I built the public site and admin editor with a single Go binary and SQLite. I audited migration defects across the content set, fixed conversion rules, and recorded manual curation in code so repeated imports converge. I made the server database authoritative, separated code deployment from database replacement, and added backups and upload guards.",
+    },
+    summary: {
+      ko: "흩어진 학습 기록을 오래 읽고 고칠 수 있는 블로그로 옮긴 개인 프로젝트입니다. 화면 구현을 넘어 데이터의 출처, 재이관 결과, 운영 중인 글의 보존까지 설계했습니다.",
+      en: "A personal project that turned scattered study notes into a blog built for ongoing reading and editing. The work covered not only the interface but also data provenance, repeatable migration, and preservation of live edits.",
+    },
+    highlights: {
+      ko: [
+        "노션 블록→마크다운 변환과 GitHub 글·이미지·내부 링크 이관",
+        "오류 유형별 전수 검사와 재이관 시 수렴하는 curation 규칙",
+        "공개 렌더러를 공유하는 미리보기, 블록 인라인 편집, 변경 충돌 검사",
+        "배포와 DB 정본 분리, 일관된 백업과 업로드 가드",
+        "배운 점: 다시 이관하거나 배포해도 글이 안전한지가 오래 쓰는 도구의 핵심이라는 것",
+      ],
+      en: [
+        "Converted Notion blocks to Markdown and migrated GitHub notes, images, and internal links",
+        "Audited migration errors by type and codified curation rules for convergent re-imports",
+        "Shared the public renderer with previews and added inline block editing and edit conflict checks",
+        "Separated deployment from the authoritative database, with consistent backups and upload guards",
+        "Lesson: a durable tool must preserve writing through future imports and deployments",
+      ],
+    },
+    githubUrl: "https://github.com/InryeolChoi/inchoi_blog",
+    liveUrl: "https://inquieto.dev",
+  },
+  {
     title: "ft_malloc",
     role: {
       ko: "메모리 할당자 설계와 thread-safe 동적 메모리 관리 구현",

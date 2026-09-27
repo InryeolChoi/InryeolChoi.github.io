@@ -39,9 +39,16 @@ export function Projects({ locale }: ProjectsProps) {
                   {t("role")}: {item.role[locale]}
                 </p>
               </div>
-              <a href={item.githubUrl} target="_blank" rel="noreferrer">
-                {t("viewGithub")}
-              </a>
+              <div className="projectLinks">
+                {item.liveUrl && (
+                  <a href={item.liveUrl} target="_blank" rel="noreferrer">
+                    {t("liveSite")}
+                  </a>
+                )}
+                <a href={item.githubUrl} target="_blank" rel="noreferrer">
+                  {t("viewGithub")}
+                </a>
+              </div>
             </div>
             <p>{item.summary[locale]}</p>
             <div className="projectDetailList">

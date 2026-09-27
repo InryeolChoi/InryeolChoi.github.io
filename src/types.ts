@@ -43,6 +43,7 @@ export type ProjectItem = {
   summary: LocalizedText;
   highlights: LocalizedList;
   githubUrl: string;
+  liveUrl?: string;
 };
 
 export type ExperienceItem = {

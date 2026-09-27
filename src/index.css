@@ -845,6 +845,13 @@ img {
   margin-bottom: 0.9rem;
 }
 
+.projectLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
 .metaRow {
   display: grid;
   gap: 0.35rem;
@@ -1120,6 +1127,10 @@ img {
   .cardHeader,
   .wideCardHeader {
     flex-direction: column;
+  }
+
+  .projectLinks {
+    justify-content: flex-start;
   }
 }
 
