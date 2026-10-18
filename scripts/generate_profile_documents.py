@@ -396,6 +396,18 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
     story.extend(section_title("주요 프로젝트", styles))
     story.append(
         compact_entry(
+            "AgentTrap - AI 에이전트 보안 테스트",
+            "Python, Daytona, Nosana, Streamlit | github.com/InryeolChoi/agenttrap",
+            "2인 팀에서 프롬프트 인젝션 공격을 받는 AI Defender의 보안과 이메일 요약 업무 완료를 분리해 평가하는 문제 정의와 기준 설계에 참여했습니다.",
+            [
+                "정상 입력 Baseline과 공격 입력을 비교하고, Baseline 실패는 판정 불가로 처리",
+                "허용되지 않은 도구 호출 시도와 필수 사실 요약 완료를 별도로 검사",
+            ],
+            styles,
+        )
+    )
+    story.append(
+        compact_entry(
             "심심조각 - Spring Boot backend",
             "Spring Boot, Java, MySQL, Redis, JWT",
             "감정 기록 기반 일기 서비스의 백엔드를 구축하며 소셜 로그인, 일기 관리, AI 편지, 월간 리포트를 하나의 서비스 흐름으로 연결했습니다.",
@@ -461,6 +473,15 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
         )
     )
 
+    story.extend(section_title("수상", styles))
+    story.append(
+        p(
+            "Daytona HackSprint Seoul 2026 - 2위 (참가자 투표) | AgentTrap | AI Builders | 2026.10.18",
+            styles["body"],
+        )
+    )
+    story.append(Spacer(1, 5))
+
     story.extend(section_title("자격 및 기타", styles))
     story.append(
         bullet_list(
@@ -479,6 +500,11 @@ def build_cv(styles: dict[str, ParagraphStyle]) -> None:
 
 
 def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
+    styles = {
+        **styles,
+        "body": ParagraphStyle("CvEnBody", parent=styles["body"], fontSize=8.2, leading=11.6),
+        "small": ParagraphStyle("CvEnSmall", parent=styles["small"], fontSize=7.2, leading=10.4),
+    }
     story = []
     story.extend(header_block(styles, "CV - English"))
     story.extend(section_title("Profile", styles))
@@ -558,8 +584,20 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
         )
     )
 
-    story.append(PageBreak())
+    story.append(Spacer(1, 7))
     story.extend(section_title("Selected Projects", styles))
+    story.append(
+        compact_entry(
+            "AgentTrap - AI agent security testing",
+            "Python, Daytona, Nosana, Streamlit | github.com/InryeolChoi/agenttrap",
+            "In a two-person team, helped frame the prompt-injection problem and design separate security and email-summary task checks for an AI Defender.",
+            [
+                "Compared a normal baseline with the attack; a failed baseline makes the attack result inconclusive.",
+                "Checked unauthorized tool-call attempts separately from completion of required summary facts.",
+            ],
+            styles,
+        )
+    )
     story.append(
         compact_entry(
             "Simsimjogak - Spring Boot backend",
@@ -626,6 +664,15 @@ def build_cv_en(styles: dict[str, ParagraphStyle]) -> None:
             styles,
         )
     )
+
+    story.extend(section_title("Award", styles))
+    story.append(
+        p(
+            "Daytona HackSprint Seoul 2026 - 2nd Place (participant voting) | AgentTrap | AI Builders | October 18, 2026",
+            styles["body"],
+        )
+    )
+    story.append(Spacer(1, 5))
 
     story.extend(section_title("Certifications and Other", styles))
     story.append(
@@ -696,7 +743,35 @@ def build_portfolio(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(Spacer(1, 10))
 
+    story.extend(section_title("수상", styles))
+    story.append(
+        p(
+            "Daytona HackSprint Seoul 2026 - 2위 (참가자 투표) | AgentTrap | AI Builders | 2026.10.18 | 2인 팀, 약 2시간 개발",
+            styles["body"],
+        )
+    )
+    story.append(Spacer(1, 10))
+
     story.extend(section_title("주요 프로젝트", styles))
+    story.append(
+        project_card(
+            "AgentTrap",
+            "AI 에이전트 보안 / 프롬프트 인젝션 | github.com/InryeolChoi/agenttrap",
+            "이메일에 공격 문구를 넣어 AI Defender의 보안과 원래 요약 업무 수행을 함께 시험하는 인터랙티브 프로젝트입니다.",
+            [
+                ("문제", "공격을 무시해도 업무를 끝내지 못한다면 성공인지, 악성 지시를 읽는 것과 따르는 것을 어떻게 구분할지가 핵심 질문이었습니다."),
+                ("구현", "정상 입력 Baseline과 공격 입력을 비교하고, Python Judge가 허용되지 않은 도구 호출 시도와 필수 사실 요약을 별도로 검사합니다. Daytona는 격리 실행과 기록에, Nosana는 Defender 추론에 사용했습니다."),
+                ("결과", "Baseline 실패를 판정 불가로 처리하고, 차단된 도구도 시도와 실제 실행을 구분해 기록합니다. 2인 팀이 약 2시간 동안 개발했습니다."),
+            ],
+            [
+                "Security와 Task Completion을 분리한 평가 기준 설계",
+                "고정 이메일 요약 시나리오와 Streamlit 입력·결과 UI",
+                "Daytona 격리 환경과 Nosana 추론 연결",
+            ],
+            ["Python", "Daytona", "Nosana", "Streamlit"],
+            styles,
+        )
+    )
     story.append(
         project_card(
             "ft_malloc",
@@ -898,7 +973,36 @@ def build_portfolio_en(styles: dict[str, ParagraphStyle]) -> None:
     )
     story.append(Spacer(1, 10))
 
+    story.extend(section_title("Award", styles))
+    story.append(
+        p(
+            "Daytona HackSprint Seoul 2026 - 2nd Place (participant voting) | AgentTrap | AI Builders | October 18, 2026 | Two developers, about two hours",
+            styles["body"],
+        )
+    )
+    story.append(Spacer(1, 10))
+
+    story.append(PageBreak())
     story.extend(section_title("Representative Projects", styles))
+    story.append(
+        project_card(
+            "AgentTrap",
+            "AI Agent Security / Prompt Injection | github.com/InryeolChoi/agenttrap",
+            "An interactive playground where users inject instructions into an email to test an AI Defender's security and its ability to complete the original summary task.",
+            [
+                ("Problem", "If the Defender ignores an attack but fails its task, should that count as success? How can reading malicious text be distinguished from following it?"),
+                ("Approach", "A Python judge compares a normal baseline with the attack and checks unauthorized tool-call attempts separately from required summary facts. Daytona provides isolated execution and logs; Nosana provides Defender inference."),
+                ("Result", "A failed baseline makes the attack inconclusive, and blocked tool calls are recorded as attempts rather than executions. Built by a two-person team in approximately two hours."),
+            ],
+            [
+                "Designed separate security and task-completion criteria.",
+                "Used a fixed email-summary scenario with a Streamlit input and results UI.",
+                "Connected Daytona sandbox execution with Nosana inference.",
+            ],
+            ["Python", "Daytona", "Nosana", "Streamlit"],
+            styles,
+        )
+    )
     story.append(
         project_card(
             "ft_malloc",
