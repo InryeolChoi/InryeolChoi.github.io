@@ -731,6 +731,8 @@ img {
   flex-wrap: wrap;
   gap: 0.55rem;
   margin-top: 1rem;
+  padding: 0;
+  list-style: none;
 }
 
 .tagList.compact {
@@ -849,6 +851,30 @@ img {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.75rem;
+}
+
+.projectSubtitle {
+  margin: 0.3rem 0 0;
+  color: var(--accent-deep);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.achievementResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.8rem;
+  margin: 0 0 0.7rem;
+  color: var(--ink-strong);
+}
+
+.achievementResult strong {
+  font-size: 1.2rem;
+}
+
+.achievementResult span {
+  color: var(--ink-soft);
 }
 
 .metaRow {

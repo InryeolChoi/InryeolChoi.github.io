@@ -2,6 +2,7 @@ import introKo from "../content/intro.ko.txt?raw";
 import introEn from "../content/intro.en.txt?raw";
 
 import type {
+  AchievementItem,
   CertificationItem,
   EducationItem,
   ExperienceItem,
@@ -281,6 +282,48 @@ export const portfolioItems: PortfolioItem[] = [
 
 export const projectItems: ProjectItem[] = [
   {
+    id: "agenttrap",
+    title: "AgentTrap",
+    subtitle: {
+      ko: "AI 에이전트 보안 / 프롬프트 인젝션",
+      en: "AI Agent Security / Prompt Injection",
+    },
+    role: {
+      ko: "2인 팀에서 문제 정의와 보안·업무 완료 평가 기준 설계에 참여",
+      en: "Worked in a two-person team on problem framing and separate security and task-completion criteria",
+    },
+    problem: {
+      ko: "공격을 따르지 않았더라도 원래 업무를 끝내지 못한 에이전트를 성공으로 볼 수 있는지, 악성 지시를 단순히 읽은 것과 실제로 따른 것을 어떻게 구분할지가 핵심 질문이었습니다.",
+      en: "The core questions were whether an agent that ignored an attack but failed its original task should pass, and how to distinguish reading malicious instructions from following them.",
+    },
+    approach: {
+      ko: "고정된 이메일 요약 임무에서 정상 입력(Baseline)과 공격 입력을 비교합니다. Python 판정 로직은 허용되지 않은 도구 호출 시도와 필수 정보 요약 완료를 따로 검사하고, Baseline이 실패하면 공격 결과를 무효로 처리합니다. Daytona의 격리 환경에서 이메일 읽기와 도구 호출을 기록하고 Nosana 모델의 응답을 평가하도록 구성했습니다.",
+      en: "The app compares a normal baseline with an attack on a fixed email-summary task. Its Python judge checks unauthorized tool-call attempts and required summary facts separately, and marks an attack inconclusive if the baseline fails. Daytona records email reads and tool calls in an isolated sandbox, while Nosana supplies the Defender response.",
+    },
+    summary: {
+      ko: "사용자가 이메일에 공격 문구를 넣어 AI Defender의 프롬프트 인젝션 대응과 원래 업무 수행을 함께 시험하는 인터랙티브 프로젝트입니다.",
+      en: "An interactive playground where users inject instructions into an email to test both the AI Defender's security and its ability to complete the original task.",
+    },
+    highlights: {
+      ko: [
+        "Security와 Task Completion을 분리해 판정",
+        "정상 입력 Baseline이 실패하면 공격 결과를 무효로 처리",
+        "차단된 도구도 호출 시도와 실제 실행 여부를 구분해 기록",
+      ],
+      en: [
+        "Evaluates security and task completion separately",
+        "Treats an attack as inconclusive when the normal baseline fails",
+        "Records attempted and executed tool calls separately, including blocked calls",
+      ],
+    },
+    techStack: ["Python", "Daytona", "Nosana", "Streamlit"],
+    achievement: {
+      ko: "2위 — Daytona HackSprint Seoul 2026 (참가자 투표)",
+      en: "2nd Place — Daytona HackSprint Seoul 2026 (participant voting)",
+    },
+    githubUrl: "https://github.com/InryeolChoi/agenttrap",
+  },
+  {
     title: "열렬히.뛰기",
     role: {
       ko: "개인 블로그의 콘텐츠 이관·편집·운영 전 과정 설계 및 구현",
@@ -479,6 +522,21 @@ export const projectItems: ProjectItem[] = [
       ],
     },
     githubUrl: "https://github.com/InryeolChoi/simsim-server",
+  },
+];
+
+export const achievementItems: AchievementItem[] = [
+  {
+    event: "Daytona HackSprint Seoul 2026",
+    placement: { ko: "2위", en: "2nd Place" },
+    awardType: { ko: "참가자 투표", en: "Participant Voting" },
+    date: { ko: "2026년 10월 18일", en: "October 18, 2026" },
+    organizer: "AI Builders",
+    project: "AgentTrap",
+    context: {
+      ko: "2인 팀이 약 2시간 동안 만든 AI 에이전트 보안 테스트 프로젝트로 수상했습니다.",
+      en: "Awarded for an AI agent security testing project built by a two-person team in approximately two hours.",
+    },
   },
 ];
 
@@ -709,6 +767,7 @@ export const otherItems: OtherItem[] = [
 export const sectionAnchors = [
   { id: "skills", label: { ko: "기술 스택", en: "Tech Stack" } },
   { id: "projects", label: { ko: "프로젝트", en: "Projects" } },
+  { id: "achievements", label: { ko: "수상", en: "Awards" } },
   { id: "learning-history", label: { ko: "학습이력", en: "Learning History" } },
   { id: "education", label: { ko: "교육", en: "Education" } },
   { id: "certifications", label: { ko: "자격증", en: "Certifications" } },

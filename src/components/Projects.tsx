@@ -21,6 +21,7 @@ export function Projects({ locale }: ProjectsProps) {
         {projectItems.map((item, index) => (
           <motion.article
             key={item.title}
+            id={item.id}
             className="wideCard"
             {...getRevealMotion(isCompact, {
               axis: "y",
@@ -35,6 +36,7 @@ export function Projects({ locale }: ProjectsProps) {
             <div className="wideCardHeader">
               <div>
                 <h3>{item.title}</h3>
+                {item.subtitle && <p className="projectSubtitle">{item.subtitle[locale]}</p>}
                 <p className="wideCardRole">
                   {t("role")}: {item.role[locale]}
                 </p>
@@ -51,6 +53,19 @@ export function Projects({ locale }: ProjectsProps) {
               </div>
             </div>
             <p>{item.summary[locale]}</p>
+            {item.techStack && (
+              <ul className="tagList compact" aria-label={t("techStack")}>
+                {item.techStack.map((technology) => (
+                  <li className="tag" key={technology}>{technology}</li>
+                ))}
+              </ul>
+            )}
+            {item.achievement && (
+              <div className="metaRow">
+                <span className="metaHeading">{t("achievement")}</span>
+                <p>{item.achievement[locale]}</p>
+              </div>
+            )}
             <div className="projectDetailList">
               <div className="metaRow">
                 <span className="metaHeading">{t("problem")}</span>

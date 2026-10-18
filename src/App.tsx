@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiBriefcase, FiDownload, FiFileText } from "react-icons/fi";
 
 import { Certifications } from "./components/Certifications";
+import { Achievements } from "./components/Achievements";
 import { Education } from "./components/Education";
 import { Experience } from "./components/Experience";
 import { Hero } from "./components/Hero";
@@ -153,6 +154,7 @@ function App() {
           <Hero locale={locale} />
           <Skills locale={locale} />
           <Projects locale={locale} />
+          <Achievements locale={locale} />
           <LearningHistory locale={locale} />
           <Education locale={locale} />
           <Certifications locale={locale} />

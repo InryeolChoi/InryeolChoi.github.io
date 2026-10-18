@@ -36,14 +36,28 @@ export type PortfolioItem = {
 };
 
 export type ProjectItem = {
+  id?: string;
   title: string;
+  subtitle?: LocalizedText;
   role: LocalizedText;
   problem: LocalizedText;
   approach: LocalizedText;
   summary: LocalizedText;
   highlights: LocalizedList;
+  techStack?: string[];
+  achievement?: LocalizedText;
   githubUrl: string;
   liveUrl?: string;
+};
+
+export type AchievementItem = {
+  event: string;
+  placement: LocalizedText;
+  awardType: LocalizedText;
+  date: LocalizedText;
+  organizer: string;
+  project: string;
+  context: LocalizedText;
 };
 
 export type ExperienceItem = {
